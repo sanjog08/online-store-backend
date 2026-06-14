@@ -11,6 +11,15 @@ import upload from './middlewares/upload.js';
 
 const router = Router();
 
+// ─── Home (public) ───────────────────────────────────────────────────────────
+router.get('/', (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: '🚀 E-Commerce API is up and running 24x7, deployed on Vercel.',
+    status: 'online',
+  });
+});
+
 // ─── Health ─────────────────────────────────────────────────────────────────
 router.get('/health', getHealth);
 
