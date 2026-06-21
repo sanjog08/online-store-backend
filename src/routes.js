@@ -8,6 +8,8 @@ import adminRequestController from './controllers/adminRequest.controller.js';
 import productController from './controllers/product.controller.js';
 import mediaController from './controllers/media.controller.js';
 import upload from './middlewares/upload.js';
+import newProductController from './controllers/newProduct.controller.js';
+import todaysOfferController from './controllers/todaysOffer.controller.js';
 
 const router = Router();
 
@@ -148,5 +150,32 @@ router.delete('/media',
   requireRole('admin'),
   (req, res, next) => mediaController.delete(req, res, next)
 );
+
+
+// ─── New Products ──────────────────────────────────────────────────
+// Public: get the new products list (full product data)
+router.get('/new-products', (req, res, next) => newProductController.get(req, res, next));
+
+// Admin: replace entire list
+router.post('/new-products', authenticate, requireRole('admin'), (req, res, next) => newProductController.set(req, res, next));
+
+// Admin: add product(s) to the list
+router.put('/new-products', authenticate, requireRole('admin'), (req, res, next) => newProductController.add(req, res, next));
+
+// Admin: remove product(s) from the list
+router.delete('/new-products', authenticate, requireRole('admin'), (req, res, next) => newProductController.remove(req, res, next));
+
+// ─── Today's Offer ───────────────────────────────────────────────
+// Public: get today's offer list (full product data)
+router.get('/todays-offer', (req, res, next) => todaysOfferController.get(req, res, next));
+
+// Admin: replace entire list
+router.post('/todays-offer', authenticate, requireRole('admin'), (req, res, next) => todaysOfferController.set(req, res, next));
+
+// Admin: add product(s) to the list
+router.put('/todays-offer', authenticate, requireRole('admin'), (req, res, next) => todaysOfferController.add(req, res, next));
+
+// Admin: remove product(s) from the list
+router.delete('/todays-offer', authenticate, requireRole('admin'), (req, res, next) => todaysOfferController.remove(req, res, next));
 
 export default router;
