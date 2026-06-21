@@ -3,12 +3,13 @@ import ApiError from '../utils/ApiError.js';
 
 /**
  * Retrieve all products.
- * Optional query filters: category, brand
+ * Optional query filters: category, brand, search (name only)
  */
 const getAllProducts = async (filters = {}) => {
   const query = {};
   if (filters.category) query.category = filters.category;
   if (filters.brand) query.brand = filters.brand;
+  if (filters.search) query.name = { $regex: filters.search, $options: 'i' };
   return Product.find(query).sort({ createdAt: -1 });
 };
 

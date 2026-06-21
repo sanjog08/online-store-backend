@@ -4,12 +4,12 @@ class ProductController {
   /**
    * GET /products
    * Returns a list of all products.
-   * Optional query params: ?category=&brand=
+   * Optional query params: ?category=&brand=&search=
    */
   async getAll(req, res, next) {
     try {
-      const { category, brand } = req.query;
-      const products = await productService.getAllProducts({ category, brand });
+      const { category, brand, search } = req.query;
+      const products = await productService.getAllProducts({ category, brand, search });
       res.status(200).json({ success: true, count: products.length, data: products });
     } catch (err) {
       next(err);

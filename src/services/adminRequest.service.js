@@ -18,7 +18,7 @@ const applyForAdmin = async (userId, reason) => {
 
   const existingPending = await AdminRequest.findOne({ user: userId, status: 'pending' });
   if (existingPending) {
-    throw new ApiError(409, 'You already have a pending admin request');
+    throw new ApiError(409, 'Already applied for admin.');
   }
 
   const request = await AdminRequest.create({ user: userId, reason });
