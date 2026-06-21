@@ -10,6 +10,7 @@ import mediaController from './controllers/media.controller.js';
 import upload from './middlewares/upload.js';
 import newProductController from './controllers/newProduct.controller.js';
 import todaysOfferController from './controllers/todaysOffer.controller.js';
+import aboutUsController from './controllers/aboutUs.controller.js';
 
 const router = Router();
 
@@ -177,5 +178,18 @@ router.put('/todays-offer', authenticate, requireRole('admin'), (req, res, next)
 
 // Admin: remove product(s) from the list
 router.delete('/todays-offer', authenticate, requireRole('admin'), (req, res, next) => todaysOfferController.remove(req, res, next));
+
+// ─── About Us ─────────────────────────────────────────────────────────────────
+// Public: get the about us document
+router.get('/about-us', (req, res, next) => aboutUsController.get(req, res, next));
+
+// Admin: create the about us document (first time setup)
+router.post('/about-us', authenticate, requireRole('admin'), (req, res, next) => aboutUsController.create(req, res, next));
+
+// Admin: update the about us document (partial or full)
+router.put('/about-us', authenticate, requireRole('admin'), (req, res, next) => aboutUsController.update(req, res, next));
+
+// Admin: delete the about us document
+router.delete('/about-us', authenticate, requireRole('admin'), (req, res, next) => aboutUsController.remove(req, res, next));
 
 export default router;
