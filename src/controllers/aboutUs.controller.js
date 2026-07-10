@@ -8,7 +8,8 @@ class AboutUsController {
    */
   async get(req, res, next) {
     try {
-      const doc = await aboutUsService.getAboutUs();
+      const lang = req.query.lang || 'en';
+      const doc = await aboutUsService.getAboutUs(lang);
       res.status(200).json({ success: true, data: doc });
     } catch (err) {
       next(err);

@@ -6,8 +6,8 @@ import ApiError from '../utils/ApiError.js';
  * Returns the single about us document.
  * Public — no authentication required.
  */
-const getAboutUs = async () => {
-  const doc = await AboutUs.findOne();
+const getAboutUs = async (lang) => {
+  const doc = await AboutUs.findOne({language: lang});
   if (!doc) throw new ApiError(404, 'About Us information has not been set up yet.');
   return doc;
 };
